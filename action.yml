@@ -1,0 +1,13 @@
+name: 'backstage-techdocs'
+description: 'Run command for technical documentation generation'
+author: 'TwistoPayments Platform team'
+inputs:
+  command:
+    description: Command to run, currently only `check` and `publish`
+    required: true
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.command }}
