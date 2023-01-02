@@ -1,4 +1,4 @@
-name: 'backstage-techdocs'
+name: 'MkDocs check and Backstage TechDocs publish'
 description: 'Run command for technical documentation generation'
 author: 'TwistoPayments Platform team'
 inputs:
