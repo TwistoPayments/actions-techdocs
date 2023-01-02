@@ -6,10 +6,15 @@ ENV version=1.2
 LABEL name=techdocs-check version=$version \
     maintainer="Pavel Dedik <dedikx@gmail.com>"
 
-RUN apk add --no-cache bash py3-pip && \
+RUN apk add --no-cache bash py3-pip chromium && \
     pip install --no-cache mkdocs-techdocs-core==1.* && \
     pip install --no-cache shyaml && \
-    npm install -g @techdocs/cli
+    npm install -g @techdocs/cli && \
+    npm install -g @mermaid-js/mermaid-cli && \
+    pip install --no-cache markdown-inline-mermaid
+
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
 WORKDIR /app
 
