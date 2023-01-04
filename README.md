@@ -32,3 +32,15 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
 ```
+
+Alternatively, you can pull image from Docker Hub which will be faster as you won't need to build the image each time, just replace
+
+```yaml
+        uses: TwistoPayments/actions-techdocs@main
+```
+
+with
+
+```yaml
+        uses: 'docker://TwistoPayments/actions-techdocs:main'
+````
