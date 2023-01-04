@@ -15,14 +15,14 @@ jobs:
 
       # Runs mkdocs check in all directories containing **/mkdocs.yaml file
       - name: Run mkdocs check
-        uses: TwistoPayments/actions-techdocs@main
+        uses: TwistoPayments/actions-techdocs@v1.0.1
         with:
           command: check
 
       # Runs techdocs generate and techdocs publish commands in all directories containgin
       # **/mkdocs.yaml file. Currently only S3 publisher is supported.
       - name: Run techdocs publish
-        uses: TwistoPayments/actions-techdocs@main
+        uses: TwistoPayments/actions-techdocs@v1.0.1
         with:
           command: publish
         env:
@@ -36,11 +36,11 @@ jobs:
 Alternatively, you can pull image from Docker Hub which will be faster as you won't need to build the image each time, just replace
 
 ```yaml
-        uses: TwistoPayments/actions-techdocs@main
+        uses: TwistoPayments/actions-techdocs@v1.0.1
 ```
 
 with
 
 ```yaml
-        uses: 'docker://twistopayments/actions-techdocs:main'
+        uses: 'docker://twistopayments/actions-techdocs:v1.0.1'
 ````
