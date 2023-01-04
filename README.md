@@ -42,5 +42,5 @@ Alternatively, you can pull image from Docker Hub which will be faster as you wo
 with
 
 ```yaml
-        uses: 'docker://TwistoPayments/actions-techdocs:main'
+        uses: 'docker://twistopayments/actions-techdocs:main'
 ````
