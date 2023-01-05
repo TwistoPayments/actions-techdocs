@@ -37,10 +37,14 @@ Alternatively, you can pull image from Docker Hub which will be faster as you wo
 
 ```yaml
         uses: TwistoPayments/actions-techdocs@main
+        with:
+          command: <check/publish>
 ```
 
 with
 
 ```yaml
-        uses: 'docker://twistopayments/actions-techdocs:main'
+        uses: docker://twistopayments/actions-techdocs:main
+        with:
+          args: <check/publish>
 ````
