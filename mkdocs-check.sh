@@ -2,7 +2,7 @@
 
 working_dir="$PWD"
 
-for mkdocs in $(find . -name mkdocs.yaml 2>/dev/null); do
+for mkdocs in $(find -type f \( -name "mkdocs.yml" -o -name "mkdocs.yaml" \) 2>/dev/null); do
   docs_dir=$(dirname $mkdocs)
 
   echo "info: Running command 'mkdocs build $docs_dir' ..."
