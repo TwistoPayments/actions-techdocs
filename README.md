@@ -2,6 +2,18 @@
 
 Github Action for Backstage's techdocs plugin from Spotify.
 
+## What does it do?
+
+It scans the whole repository for the following files:
+
+- `mkdocs.yaml`
+- `catalog-info.yaml`
+
+The action has two commands:
+
+- `check` - runs `mkdocs build` in all directories containing `mkdocs.yaml` and checks for any warnings or errors in the output
+- `publish` - runs `techdocs publish` in all directories containing `catalog-info.yaml` and `mkdocs.yaml` (the catalog file is used to extract kind/namespace/name of entity)
+
 ## Usage
 
 ```yaml
