@@ -22,20 +22,23 @@ for mkdocs in $(find . -name mkdocs.yaml 2>/dev/null); do
 
   catalog_info=$(cat catalog-info.yaml)
 
-  kind=$(echo "$catalog_info" | shyaml get-value kind)
-  name=$(echo "$catalog_info" | shyaml get-value metadata.name)
-  namespace=$(echo "$catalog_info" | shyaml get-value metadata.namespace default)
-  entity_name="$namespace/$kind/$name"
+  kinds=($(echo "$catalog_info" | shyaml get-value kind | tr '\0' '\n'))
+  names=($(echo "$catalog_info" | shyaml get-value metadata.name | tr '\0' '\n'))
+  namespaces=($(echo "$catalog_info" | shyaml get-value metadata.namespace default | tr '\0' '\n'))
 
-  echo "info: Docs for entity $entity_name generating ..."
-  techdocs-cli generate --output-dir $build_dir --no-docker --verbose
+  for id in "${!kinds[@]}"; do
+    entity_name="${namespaces[$id]}/${kinds[$id]}/${names[$id]}"
 
-  echo "info: Docs for entity $entity_name publishing ..."
-  techdocs-cli publish --publisher-type $TECHDOCS_PUBLISHER_TYPE --storage-name $TECHDOCS_S3_BUCKET_NAME --directory $build_dir --entity $entity_name
+    echo "info: Docs for entity $entity_name generating ..."
+    techdocs-cli generate --output-dir $build_dir --no-docker --verbose
 
-  echo "info: Docs for entity $entity_name published"
-  echo ""
+    echo "info: Docs for entity $entity_name publishing ..."
+    techdocs-cli publish --publisher-type $TECHDOCS_PUBLISHER_TYPE --storage-name $TECHDOCS_S3_BUCKET_NAME --directory $build_dir --entity $entity_name
 
-  cd $working_dir
+    echo "info: Docs for entity $entity_name published"
+    echo ""
+
+    cd $working_dir
+  done
 
 done
