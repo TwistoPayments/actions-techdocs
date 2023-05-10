@@ -1,6 +1,6 @@
 FROM node:18-alpine
 
-ENV version=1.2
+ENV version=1.3
 
 # Metadata
 LABEL name=techdocs-check version=$version \
