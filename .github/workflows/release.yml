@@ -4,9 +4,18 @@ on:
   push:
     branches:
       - 'main'
+      - 'DO-28'
   create:
     tags:
       - v*
+
+permissions:
+  id-token: write
+  contents: read
+  checks: write
+
+env:
+  IMAGE_NAME: public.ecr.aws/twisto/actions-techdocs
 
 jobs:
   push_to_registry:
@@ -18,17 +27,24 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Login to DockerHub
-        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9 # pin@v1
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@010d0da01d0b5a38af31e9c3470dbfdabdecca3a # pin@v4.0.1
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          role-to-assume: 'arn:aws:iam::${{ vars.AWS_CICD_ACCOUNT }}:role/ecr-cicd-github'
+          aws-region: ${{ vars.AWS_CICD_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@062b18b96a7aff071d4dc91bc00c4c1a7945b076 # pin@v2.0.1
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
-          images: twistopayments/actions-techdocs
+          images: ${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value={{ sha }},enable=true
+            type=raw,value=suffix=.latest
 
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
