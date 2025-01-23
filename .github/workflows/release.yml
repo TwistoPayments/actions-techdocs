@@ -20,7 +20,7 @@ env:
 jobs:
   push_to_registry:
     name: Push image to ECR
-    runs-on: ubuntu-latest
+    runs-on: [2core-4gb]
     steps:
       - name: Checkout
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f # pin@v2
