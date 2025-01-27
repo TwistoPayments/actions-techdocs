@@ -11,10 +11,10 @@ RUN apk add --no-cache bash py3-pip chromium && \
     . /venv/bin/activate && \
     pip install --no-cache mkdocs-techdocs-core && \
     pip install --no-cache shyaml && \
-    npm install -g @techdocs/cli && \
-    npm install -g @mermaid-js/mermaid-cli && \
     pip install --no-cache markdown-inline-mermaid && \
     deactivate
+
+RUN npm install -g @techdocs/cli @mermaid-js/mermaid-cli 
 
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
     PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
