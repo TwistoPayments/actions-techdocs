@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM public.ecr.aws/twisto/node:18-alpine
 
 ENV version=1.3
 
