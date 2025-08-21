@@ -14,7 +14,8 @@ RUN apk add --no-cache bash py3-pip chromium && \
     pip install --no-cache markdown-inline-mermaid && \
     deactivate
 
-RUN npm install -g @techdocs/cli @mermaid-js/mermaid-cli 
+# keep Node 18 and install versions that are compatible with it
+RUN npm install -g @techdocs/cli@1.9.5 @mermaid-js/mermaid-cli@10.9.1
 
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
     PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
